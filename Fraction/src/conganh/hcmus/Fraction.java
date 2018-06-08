@@ -15,16 +15,8 @@ public class Fraction {
         this.denominator = denominator;
     }
 
-    public double getNumerator() {
-        return numerator;
-    }
-
     public void setNumerator(int numerator) {
         this.numerator = numerator;
-    }
-
-    public int getDenominator() {
-        return denominator;
     }
 
     public void setDenominator(int denominator) {
