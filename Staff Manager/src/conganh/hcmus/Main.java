@@ -51,6 +51,7 @@ public class Main {
                 } else {
                     System.err.println("Remove All Error!");
                 }
+                break;
             case 5:
                 outputAllCadres();
                 break;
@@ -172,16 +173,23 @@ public class Main {
         try {
             fileInputStream = new FileInputStream(FILE_NAME);
             ObjectInputStream filein = new ObjectInputStream(fileInputStream);
-            if (filein == null || fileInputStream == null) {
-                System.err.println("File is empty!");
-                return;
+            boolean isexist = true;
+            Cadres tmp = null;
+            while (isexist) {
+                if (fileInputStream.available() != 0) {
+                    tmp = (Cadres) filein.readObject();
+                    if (tmp != null) {
+                        listCadres.add(tmp);
+                    }
+                } else {
+                    isexist = false;
+                }
             }
-            listCadres.add((Cadres) filein.readObject());
             filein.close();
             fileInputStream.close();
-            System.out.println("Successful!");
+            System.out.println("Successful Read File!");
         } catch (Exception ex) {
-            System.err.println("Error");
+            System.err.println("Error Read File!");
             ex.printStackTrace();
         }
     }
@@ -191,15 +199,19 @@ public class Main {
         try {
             fileOutputStream = new FileOutputStream(FILE_NAME);
             ObjectOutputStream fileout = new ObjectOutputStream(fileOutputStream);
-            Iterator itr = listCadres.iterator();
-            while (itr.hasNext()) {
-               fileout.writeObject(itr.next());
+            if (listCadres.size() > 0) {
+                Iterator itr = listCadres.iterator();
+                while (itr.hasNext()) {
+                    fileout.writeObject(itr.next());
+                }
+            } else {
+             fileout.writeObject(null);
             }
             fileout.close();
             fileOutputStream.close();
-            System.out.println("Successful!");
+            System.out.println("Successful Write File!");
         } catch (Exception ex) {
-            System.err.println("Error");
+            System.err.println("Error Write File!");
             ex.printStackTrace();
         }
     }
