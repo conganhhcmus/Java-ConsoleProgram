@@ -155,6 +155,7 @@ public class Main {
             if (tmp.fullName.compareToIgnoreCase(nameDelete) == 0) {
                 listCadres.remove(pos);
                 check = true;
+                return check;
             }
             pos++;
         }
