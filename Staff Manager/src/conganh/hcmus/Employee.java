@@ -1,8 +1,9 @@
 package conganh.hcmus;
 
-import java.util.Date;
 
-public class Employee extends Cadres{
+import java.io.Serializable;
+
+public class Employee extends Cadres implements Serializable {
     private String rank;
 
     public Employee(String fullName, String birthDay, String gender, String address,String rank) {
@@ -17,6 +18,6 @@ public class Employee extends Cadres{
                 "\nBirthday: " + birthDay +
                 "\nGender: " + gender +
                 "\nAddress: " + address +
-                "Rank: " + rank;
+                "\nRank: " + rank;
     }
 }

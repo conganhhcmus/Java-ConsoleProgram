@@ -1,8 +1,9 @@
 package conganh.hcmus;
 
-import java.util.Date;
 
-public class Engineer extends Cadres{
+import java.io.Serializable;
+
+public class Engineer extends Cadres implements Serializable {
     private String trainingSector;
 
     public Engineer(String fullName, String birthDay, String gender, String address,String trainingSector) {

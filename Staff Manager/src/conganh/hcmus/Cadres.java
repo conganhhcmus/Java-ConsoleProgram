@@ -1,7 +1,9 @@
 package conganh.hcmus;
 
 
-public abstract class Cadres {
+import java.io.Serializable;
+
+public abstract class Cadres implements Serializable {
     protected String fullName;
     protected String birthDay;
     protected String gender;

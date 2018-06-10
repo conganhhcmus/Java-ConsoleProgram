@@ -7,18 +7,29 @@ import java.util.Scanner;
 
 public class Main {
     private static final String FILE_NAME = "Staff_Manager.dat";
-    private static ArrayList<Cadres> listCadres = new ArrayList<Cadres>();
+
+    private static ArrayList<Cadres> listCadres = new ArrayList<>();
+
     public static void main(String[] args) {
-        while(menu()) ;
+        readFile();
+        try {
+            while (menu()) ;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            writeFile();
+        }
     }
     private static boolean menu() {
         boolean check = true;
-       // readFile();
+        System.out.println("-----------------");
         System.out.println("Cadres Manager: ");
         System.out.println("1. Input/Enter the Cadres");
         System.out.println("2. Search by Name");
-        System.out.println("3. Output All Cadres");
-        System.out.println("4. Exit!");
+        System.out.println("3. Delete by Name");
+        System.out.println("4. Remove all Cadres");
+        System.out.println("5. Output All Cadres");
+        System.out.println("6. Exit!");
         int key = new Scanner(System.in).nextInt();
         switch (key) {
             case 1:
@@ -28,6 +39,19 @@ public class Main {
                 searchName();
                 break;
             case 3:
+                if (deleteCadres()) {
+                    System.out.println("Delete Successful!");
+                } else {
+                    System.err.println("Delete Error!");
+                }
+                break;
+            case 4:
+                if (removeAllCadres()) {
+                    System.out.println("Remove All Successful!");
+                } else {
+                    System.err.println("Remove All Error!");
+                }
+            case 5:
                 outputAllCadres();
                 break;
             default:
@@ -35,7 +59,6 @@ public class Main {
                 System.err.println("Exit!");
                 break;
         }
-       // writeFile();
         return check;
     }
 
@@ -121,28 +144,58 @@ public class Main {
         }
     }
 
+    private static boolean deleteCadres() {
+        boolean check = false;
+        System.out.println("Enter the name delete:");
+        String nameDelete = new Scanner(System.in).nextLine();
+        Iterator itr = listCadres.iterator();
+        int pos = 0;
+        while (itr.hasNext()) {
+            Cadres tmp = (Cadres) itr.next();
+            if (tmp.fullName.compareToIgnoreCase(nameDelete) == 0) {
+                listCadres.remove(pos);
+                check = true;
+            }
+            pos++;
+        }
+        return check;
+    }
+
+    private static boolean removeAllCadres() {
+        boolean check = listCadres.removeAll(listCadres);
+        return check;
+    }
+//Deserializable
     private static void readFile() {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(FILE_NAME);
-            BufferedInputStream file = new BufferedInputStream(fileInputStream);
+            ObjectInputStream filein = new ObjectInputStream(fileInputStream);
+            if (filein == null || fileInputStream == null) {
+                System.err.println("File is empty!");
+                return;
+            }
+            listCadres.add((Cadres) filein.readObject());
+            filein.close();
+            fileInputStream.close();
             System.out.println("Successful!");
         } catch (Exception ex) {
             System.err.println("Error");
             ex.printStackTrace();
         }
     }
-
+//Serializable
     private  static void writeFile() {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(FILE_NAME);
-            BufferedOutputStream file = new BufferedOutputStream(fileOutputStream);
+            ObjectOutputStream fileout = new ObjectOutputStream(fileOutputStream);
             Iterator itr = listCadres.iterator();
             while (itr.hasNext()) {
-                Cadres tmp = (Cadres) itr.next();
-                file.write(tmp.toString().getBytes());
+               fileout.writeObject(itr.next());
             }
+            fileout.close();
+            fileOutputStream.close();
             System.out.println("Successful!");
         } catch (Exception ex) {
             System.err.println("Error");
