@@ -22,7 +22,7 @@ public class Main {
     }
     private static boolean menu() {
         boolean check = true;
-        System.out.println("-----------------");
+        System.out.println("*********************");
         System.out.println("Cadres Manager: ");
         System.out.println("1. Input/Enter the Cadres");
         System.out.println("2. Search by Name");
@@ -139,7 +139,9 @@ public class Main {
         if (!itr.hasNext()) {
             System.out.println("List is empty !");
         } else {
+            System.out.println("List Cadres is: ");
             while (itr.hasNext()) {
+                System.out.println("----------------------");
                 System.out.println(itr.next());
             }
         }
@@ -169,20 +171,25 @@ public class Main {
     }
 //Deserializable
     private static void readFile() {
-        FileInputStream fileInputStream = null;
+        File file = new File(FILE_NAME);
+        boolean empty = !file.exists() || file.length() == 0;
+        if (empty) {
+            System.out.println("File isn't exist!");
+            return;
+        }
         try {
-            fileInputStream = new FileInputStream(FILE_NAME);
+            FileInputStream fileInputStream = new FileInputStream(FILE_NAME);
             ObjectInputStream filein = new ObjectInputStream(fileInputStream);
-            boolean isexist = true;
+            boolean isExist = true;
             Cadres tmp = null;
-            while (isexist) {
+            while (isExist) {
                 if (fileInputStream.available() != 0) {
                     tmp = (Cadres) filein.readObject();
                     if (tmp != null) {
                         listCadres.add(tmp);
                     }
                 } else {
-                    isexist = false;
+                    isExist = false;
                 }
             }
             filein.close();
@@ -195,9 +202,8 @@ public class Main {
     }
 //Serializable
     private  static void writeFile() {
-        FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(FILE_NAME);
+            FileOutputStream fileOutputStream = new FileOutputStream(FILE_NAME,false);
             ObjectOutputStream fileout = new ObjectOutputStream(fileOutputStream);
             if (listCadres.size() > 0) {
                 Iterator itr = listCadres.iterator();
