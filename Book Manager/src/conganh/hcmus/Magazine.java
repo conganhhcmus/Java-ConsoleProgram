@@ -6,11 +6,6 @@ public class Magazine extends Document implements Serializable {
     private String releaseMonth;
     private int issueNumber;
 
-    public Magazine(String releaseMonth, int issueNumber) {
-        this.releaseMonth = releaseMonth;
-        this.issueNumber = issueNumber;
-    }
-
     public Magazine(String documentID, String publisher, int numPublishing, String releaseMonth, int issueNumber) {
         super(documentID, publisher, numPublishing);
         this.releaseMonth = releaseMonth;
@@ -35,6 +30,11 @@ public class Magazine extends Document implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "-------Magazine---------"
+                +"\nDocument ID: " + documentID
+                + "\nPublisher: " + publisher
+                + "\nNumPublishing: " + numPublishing
+                + "\nRelease Month: " + releaseMonth
+                + "\nIssue Number: " + issueNumber;
     }
 }

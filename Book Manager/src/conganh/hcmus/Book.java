@@ -6,11 +6,6 @@ public class Book extends Document implements Serializable {
     private String autherName;
     private int numPage;
 
-    public Book(String autherName, int numPage) {
-        this.autherName = autherName;
-        this.numPage = numPage;
-    }
-
     public Book(String documentID, String publisher, int numPublishing, String autherName, int numPage) {
         super(documentID, publisher, numPublishing);
         this.autherName = autherName;
@@ -35,6 +30,11 @@ public class Book extends Document implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "------------Book----------"
+                +"\nDocument ID: " + documentID
+                + "\nPublisher: " + publisher
+                + "\nNumPublishing: " + numPublishing
+                + "\nAuther Name: " + autherName
+                + "\nNumPage: " + numPage;
     }
 }
