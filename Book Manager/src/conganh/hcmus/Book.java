@@ -3,21 +3,21 @@ package conganh.hcmus;
 import java.io.Serializable;
 
 public class Book extends Document implements Serializable {
-    private String autherName;
+    private String authorName;
     private int numPage;
 
-    public Book(String documentID, String publisher, int numPublishing, String autherName, int numPage) {
+    public Book(String documentID, String publisher, int numPublishing, String authorName, int numPage) {
         super(documentID, publisher, numPublishing);
-        this.autherName = autherName;
+        this.authorName = authorName;
         this.numPage = numPage;
     }
 
-    public String getAutherName() {
-        return autherName;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAutherName(String autherName) {
-        this.autherName = autherName;
+    public void setAuthorName(String autherName) {
+        this.authorName = autherName;
     }
 
     public int getNumPage() {
@@ -34,7 +34,7 @@ public class Book extends Document implements Serializable {
                 +"\nDocument ID: " + documentID
                 + "\nPublisher: " + publisher
                 + "\nNumPublishing: " + numPublishing
-                + "\nAuther Name: " + autherName
+                + "\nAuther Name: " + authorName
                 + "\nNumPage: " + numPage;
     }
 }

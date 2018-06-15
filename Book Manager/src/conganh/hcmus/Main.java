@@ -1,6 +1,5 @@
 package conganh.hcmus;
 
-import javax.print.Doc;
 import java.io.BufferedInputStream;
 import java.io.*;
 import java.util.ArrayList;
@@ -11,9 +10,15 @@ public class Main {
     private static final String FILENAME = "Book_Manager.dat";
     private static ArrayList<Document> listDocument = new ArrayList<Document>();
     public static void main(String[] args) {
-        readFile();
-        while (menu());
-        writeFile();
+        try {
+            readFile();
+            while (menu()) ;
+            writeFile();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            System.out.println("Thank you!");
+        }
     }
     public static boolean menu() {
         System.out.println("-------------------");
@@ -21,7 +26,8 @@ public class Main {
         System.out.println("1. Input Document");
         System.out.println("2. Search By Type");
         System.out.println("3. Output Document");
-        System.out.println("4. Exit!");
+        System.out.println("4. Remove All");
+        System.out.println("5. Exit!");
         int key = new Scanner(System.in).nextInt();
         switch (key) {
             case 1:
@@ -32,6 +38,10 @@ public class Main {
                 break;
             case 3:
                 outputDocument();
+                break;
+            case 4:
+                if(clearAll()) System.out.println("Clear All Successful !");
+                else System.err.println("Clear Error !");
                 break;
             default:
                 System.err.println("Exit Successful!");
@@ -56,11 +66,19 @@ public class Main {
                 String publisher = new Scanner(System.in).nextLine();
                 System.out.println("Enter the NumPublishing");
                 int numPublishing = new Scanner(System.in).nextInt();
-                System.out.println("Enter the auther Name:");
-                String autherName = new Scanner(System.in).nextLine();
+                System.out.println("Enter the author Name:");
+                String authorName = new Scanner(System.in).nextLine();
                 System.out.println("Enter the NumPage:");
                 int numPage = new Scanner(System.in).nextInt();
-                listDocument.add(new Book(documentID,publisher,numPublishing,autherName,numPage));
+                Iterator<Document> itr = listDocument.iterator();
+                while (itr.hasNext()) {
+                    Document tmp = itr.next();
+                    if ((tmp instanceof Book && tmp.documentID.compareToIgnoreCase(documentID) == 0)) {
+                        System.out.println("Document ID is Exist !");
+                        return;
+                    }
+                }
+                listDocument.add(new Book(documentID,publisher,numPublishing,authorName,numPage));
                 System.out.println("Successful !");
                 break;
             case 2:
@@ -76,6 +94,14 @@ public class Main {
                 String releaseMonth = new Scanner(System.in).nextLine();
                 System.out.println("Enter the issue Number:");
                 int issueNumber = new Scanner(System.in).nextInt();
+                itr = listDocument.iterator();
+                while (itr.hasNext()) {
+                    Document tmp = itr.next();
+                    if ((tmp instanceof Magazine && tmp.documentID.compareToIgnoreCase(documentID) == 0)) {
+                        System.out.println("Document ID is Exist !");
+                        return;
+                    }
+                }
                 listDocument.add(new Magazine(documentID,publisher,numPublishing,releaseMonth,issueNumber));
                 System.out.println("Successful !");
                 break;
@@ -90,6 +116,14 @@ public class Main {
                 numPublishing = new Scanner(System.in).nextInt();
                 System.out.println("Enter the release Day:");
                 String releaseDay = new Scanner(System.in).nextLine();
+                itr = listDocument.iterator();
+                while (itr.hasNext()) {
+                    Document tmp = itr.next();
+                    if ((tmp instanceof Newspaper && tmp.documentID.compareToIgnoreCase(documentID) == 0)) {
+                        System.out.println("Document ID is Exist !");
+                        return;
+                    }
+                }
                 listDocument.add(new Newspaper(documentID,publisher,numPublishing,releaseDay));
                 System.out.println("Successful !");
                 break;
@@ -100,6 +134,12 @@ public class Main {
 
     }
     public static void outputDocument() {
+        System.out.println("===================");
+        System.out.println("List Document: ");
+        if (listDocument.size() <= 0) {
+            System.out.println("Is Empty !");
+            return;
+        }
         Iterator<Document> itr = listDocument.iterator();
         while (itr.hasNext()) {
             Document tmp = itr.next();
@@ -141,6 +181,9 @@ public class Main {
                 break;
         }
     }
+    public static boolean clearAll() {
+        return listDocument.removeAll(listDocument);
+    }
     private static void readFile() {
         File file = new File(FILENAME);
         boolean isEmpty = !file.exists() || file.length() == 0;
@@ -150,8 +193,7 @@ public class Main {
         }
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME);
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-            ObjectInputStream fin = new ObjectInputStream(bufferedInputStream);
+            ObjectInputStream fin = new ObjectInputStream(fileInputStream);
             boolean isExist = true;
             Document tmp = null;
             while (isExist) {
@@ -162,31 +204,28 @@ public class Main {
                     isExist = false;
                 }
             }
-            fileInputStream.close();
-            bufferedInputStream.close();
             fin.close();
+            fileInputStream.close();
             System.out.println("Read Successful !");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Error Read File !");
         }
     }
     private static void writeFile() {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME);
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-            ObjectOutputStream fout = new ObjectOutputStream(bufferedOutputStream);
-            if (listDocument.size() >= 0) {
+            ObjectOutputStream fout = new ObjectOutputStream(fileOutputStream);
+            if (listDocument.size() > 0) {
                 Iterator itr = listDocument.iterator();
                 while (itr.hasNext()) {
                     fout.writeObject(itr.next());
                 }
             } else fout.writeObject(null);
-            fileOutputStream.close();
-            bufferedOutputStream.close();
             fout.close();
+            fileOutputStream.close();
             System.out.println("Write Successful !");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Error Write File !");
         }
     }
 }
