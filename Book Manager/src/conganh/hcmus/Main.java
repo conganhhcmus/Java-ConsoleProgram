@@ -1,11 +1,11 @@
 package conganh.hcmus;
 
+import javax.print.Doc;
 import java.io.BufferedInputStream;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.jar.Attributes;
 
 public class Main {
     private static final String FILENAME = "Book_Manager.dat";
@@ -116,12 +116,28 @@ public class Main {
         String documentID = new Scanner(System.in).nextLine();
         switch (key) {
             case 1:
+                for (Document tmp : listDocument) {
+                    if (tmp.documentID.compareToIgnoreCase(documentID) == 0 && tmp instanceof Book) {
+                        System.out.println(tmp);
+                    }
+                }
                 break;
             case 2:
+                for (Document tmp : listDocument) {
+                    if (tmp.documentID.compareToIgnoreCase(documentID) == 0 && tmp instanceof Magazine) {
+                        System.out.println(tmp);
+                    }
+                }
                 break;
             case 3:
+                for (Document tmp : listDocument) {
+                    if (tmp.documentID.compareToIgnoreCase(documentID) == 0 && tmp instanceof Newspaper) {
+                        System.out.println(tmp);
+                    }
+                }
                 break;
             default:
+                System.err.println("Error !");
                 break;
         }
     }
