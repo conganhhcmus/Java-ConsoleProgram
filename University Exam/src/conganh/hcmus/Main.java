@@ -138,15 +138,15 @@ public class Main {
     }
 
     private static boolean removeAll(){
-        Iterator<Integer> itr=listStudent.keySet().iterator();
+        int[] resultID = new int[listStudent.size()];
         int pos = 0;
-        while(itr.hasNext()){
-            Integer tmp = itr.next();
-            ++pos;
-            if(listStudent.remove(tmp)==null) {
-                System.err.println("Error index is " + pos);
+        for (int key : listStudent.keySet()) {
+            if (listStudent.get(key) == null) {
                 return false;
-            }
+            } else resultID[pos++] = key;
+        }
+        for (int i = 0; i < pos; ++i) {
+            listStudent.remove(resultID[i]);
         }
         return true;
     }
