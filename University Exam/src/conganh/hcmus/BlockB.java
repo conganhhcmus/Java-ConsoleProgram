@@ -40,6 +40,14 @@ public class BlockB extends Student implements Serializable {
 
     @Override
     public String toString() {
-        return null;
+        return "\nStudent ID: " + studentID +
+                "\nFull Name: " + fullName +
+                "\nAddress: " + address +
+                "\nPrioritize: " + prioritize +
+                "\nBlock B Is:" +
+                "\nMath: " + math +
+                "\nChemistry: " + chemistry +
+                "\nBiological: " + biological +
+                "\n--------------------------\n";
     }
 }

@@ -3,35 +3,154 @@ package conganh.hcmus;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Main {
     private static final String FILE_NAME = "University_Exam.dat";
     private static HashMap<Integer,Student> listStudent =new HashMap<Integer, Student>();
     public static void main(String[] args) {
-        readFile();
-        while(menu());
-        writeFile();
+        try {
+            readFile();
+            while (menu()){
+                // clear Screen Console !
+            }
+            writeFile();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            System.out.println("Thank You !");
+        }
     }
     private static boolean menu() {
-        return true;
-    }
-    private static void input() {
-
-    }
-    private static void search(){
-
-    }
-    private static void output(){
-
-    }
-    private static boolean removeAll(){
-        Iterator<Integer> itr=listStudent.keySet().iterator();
-        while(itr.hasNext()){
-            Integer tmp=itr.next();
-            if(listStudent.remove(tmp)==null) return false;
+        System.out.println("=======================");
+        System.out.println("University Exam: \n");
+        System.out.println("1. Input Student");
+        System.out.println("2. Search Student");
+        System.out.println("3. Remove All Student");
+        System.out.println("4. Output Student");
+        System.out.println("5. Exit!");
+        int key = new Scanner(System.in).nextInt();
+        switch (key) {
+            case 1:
+                input();
+                break;
+            case 2:
+                search();
+                break;
+            case 3:
+                if (removeAll()) System.out.println("Remove All Successful !");
+                else System.err.println("Remove All Error !");
+                break;
+            case 4:
+                output();
+                break;
+            default:
+                System.err.println("Exit Successful !");
+                return false;
         }
         return true;
     }
+
+    private static void input() {
+        System.out.println("==================");
+        System.out.println("Enter the Student ID: ");
+        int studentID = new Scanner(System.in).nextInt();
+        System.out.println("Enter the Full Name");
+        String fullName = new Scanner(System.in).nextLine();
+        System.out.println("Enter the address:");
+        String address = new Scanner(System.in).nextLine();
+        System.out.println("Enter the prioritize: ");
+        String prioritize = new Scanner(System.in).nextLine();
+        System.out.println("\nEnter the block :");
+        System.out.println("\n1. Block A");
+        System.out.println("2. Block B");
+        System.out.println("3. Block C");
+        int key = new Scanner(System.in).nextInt();
+        switch (key) {
+            case 1:
+                System.out.println("Enter the Block A:\n");
+                System.out.println("Enter the Math:");
+                String math = new Scanner(System.in).nextLine();
+                System.out.println("Enter the Physical:");
+                String physical = new Scanner(System.in).nextLine();
+                System.out.println("Enter the Chemistry:");
+                String chemistry = new Scanner(System.in).nextLine();
+                listStudent.put(studentID, new BlockA(studentID, fullName, address, prioritize, math, physical, chemistry));
+                System.out.println("Input Block A Successful !");
+                break;
+            case 2:
+                System.out.println("Enter the Block B:\n");
+                System.out.println("Enter the Math:");
+                math = new Scanner(System.in).nextLine();
+                System.out.println("Enter the Chemistry:");
+                chemistry = new Scanner(System.in).nextLine();
+                System.out.println("Enter the Biological:");
+                String biological = new Scanner(System.in).nextLine();
+                listStudent.put(studentID, new BlockA(studentID, fullName, address, prioritize, math, chemistry, biological));
+                System.out.println("Input Block B Successful !");
+                break;
+            case 3:
+                System.out.println("Enter the Block C:\n");
+                System.out.println("Enter the Literature:");
+                String literature = new Scanner(System.in).nextLine();
+                System.out.println("Enter the History:");
+                String history = new Scanner(System.in).nextLine();
+                System.out.println("Enter the Geography:");
+                String geography = new Scanner(System.in).nextLine();
+                listStudent.put(studentID, new BlockA(studentID, fullName, address, prioritize, literature, history, geography));
+                System.out.println("Input Block C Successful !");
+                break;
+            default:
+                System.err.println("Input Error !");
+                break;
+        }
+    }
+
+    private static void search(){
+        if (listStudent.size() <= 0) {
+            System.out.println("List Student is Empty!");
+            return;
+        }
+        System.out.println("Enter the Student ID Search: ");
+        int studentID = new Scanner(System.in).nextInt();
+        System.out.println("==================");
+        System.out.println("Student is: ");
+        Iterator<Integer> itr = listStudent.keySet().iterator();
+        while (itr.hasNext()) {
+            Student tmp = listStudent.get(itr.next());
+            if (tmp.studentID == studentID) {
+                System.out.println(tmp);
+            }
+        }
+    }
+
+    private static void output(){
+        if (listStudent.size() <= 0) {
+            System.out.println("List Student is Empty!");
+            return;
+        }
+        System.out.println("=================");
+        System.out.println("List Student :");
+        Iterator<Integer> itr = listStudent.keySet().iterator();
+        while (itr.hasNext()) {
+            System.out.println(listStudent.get(itr.next()));
+        }
+    }
+
+    private static boolean removeAll(){
+        Iterator<Integer> itr=listStudent.keySet().iterator();
+        int pos = 0;
+        while(itr.hasNext()){
+            Integer tmp = itr.next();
+            ++pos;
+            if(listStudent.remove(tmp)==null) {
+                System.err.println("Error index is " + pos);
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static void readFile(){
         File file = new File(FILE_NAME);
         boolean isEmpty = !file.exists() || file.length() == 0;
@@ -56,6 +175,7 @@ public class Main {
             System.err.println("Error read File !");
         }
     }
+
     private static void writeFile(){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILE_NAME);
@@ -63,7 +183,7 @@ public class Main {
             if (listStudent.size() > 0) {
                 Iterator<Integer> itr = listStudent.keySet().iterator();
                 while (itr.hasNext()) {
-                    fout.writeObject(itr.next());
+                    fout.writeObject(listStudent.get(itr.next()));
                 }
             } else fout.writeObject(null);
             fout.close();
