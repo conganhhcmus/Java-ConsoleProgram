@@ -115,13 +115,10 @@ public class Main {
         int studentID = new Scanner(System.in).nextInt();
         System.out.println("==================");
         System.out.println("Student is: ");
-        Iterator<Integer> itr = listStudent.keySet().iterator();
-        while (itr.hasNext()) {
-            Student tmp = listStudent.get(itr.next());
-            if (tmp.studentID == studentID) {
-                System.out.println(tmp);
-            }
-        }
+        Student tmp = listStudent.get(studentID);
+        if (tmp != null) {
+            System.out.println(tmp);
+        } else System.out.println("Don't Find !");
     }
 
     private static void output(){
