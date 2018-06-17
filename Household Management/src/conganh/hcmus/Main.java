@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             readFile();
-            //while (menu()) ;
+            while (menu()) ;
             writeFile();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -82,10 +82,14 @@ public class Main {
                 input();
                 break;
             case 2:
-                remove(4);
+                System.out.println("Enter the Apartment Number To Remove !");
+                int apartment = new Scanner(System.in).nextInt();
+                if(remove(apartment)) System.out.println("Remove Household Successful !");
+                else System.out.println("Remove Household Fail !");
                 break;
             case 3:
-                removeAll();
+                if (removeAll()) System.out.println("Remove All Successful !");
+                else System.out.println("Remove All Fail !");
                 break;
             case 4:
                 output();
@@ -98,20 +102,61 @@ public class Main {
     }
 
     public static void input() {
-
+        System.out.println("Enter the Number Member: ");
+        int numMember = new Scanner(System.in).nextInt();
+        System.out.println("Enter the Apartment Number:");
+        int apartmentNumber = new Scanner(System.in).nextInt();
+        System.out.println("Enter the List Person: \n");
+        Iterator<Household> itr = listHousehold.iterator();
+        while (itr.hasNext()) {
+            if (itr.next().getApartmentNumber() == apartmentNumber) {
+                System.err.println("Apartment Number is Exist !");
+                System.err.println("Input Error !");
+                return;
+            }
+        }
+        int size = listHousehold.size();
+        listHousehold.add(new Household(numMember, apartmentNumber));
+        if (size < listHousehold.size()) System.out.println("Input Successful !");
+        else System.err.println("Input Error !");
     }
 
     public static void output() {
-
+        System.out.println("================");
+        System.out.println("List Household: ");
+        if (listHousehold.size() <= 0) {
+            System.out.println("List is Empty !");
+            return;
+        }
+        Iterator<Household> itr = listHousehold.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+            System.out.println("--------------------");
+        }
     }
 
     public static boolean remove(int apartmentNumber) {
-
-        return true;
+        if (listHousehold.size() <= 0) {
+            System.out.println("List is Empty !");
+            return false;
+        }
+        Iterator<Household> itr = listHousehold.iterator();
+        int index = 0;
+        while (itr.hasNext()) {
+            if (itr.next().getApartmentNumber() == apartmentNumber) {
+                break;
+            }
+            ++index;
+        }
+        if (index == listHousehold.size()) {
+            System.out.println("Don't find !");
+            return false;
+        }
+        return listHousehold.remove(index) != null;
     }
 
     public static boolean removeAll() {
 
-        return true;
+        return listHousehold.removeAll(listHousehold);
     }
 }

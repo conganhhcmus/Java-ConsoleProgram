@@ -6,11 +6,12 @@ import java.util.Scanner;
 public class Household implements Serializable {
     private int numMember;
     private int apartmentNumber;
-    private Person[]listPersion= new Person[numMember];
+    private Person[]listPersion;
 
     public Household(int numMember, int apartmentNumber) {
         this.numMember = numMember;
         this.apartmentNumber = apartmentNumber;
+        this.listPersion = new Person[numMember];
         for (int i = 0; i < numMember; ++i) {
             System.out.printf("Enter the Person[%d]: ",i);
             System.out.println("Enter the full Name: ");
