@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Book Manager/Book Management.iml" filepath="$PROJECT_DIR$/Book Manager/Book Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fraction/Fraction.iml" filepath="$PROJECT_DIR$/Fraction/Fraction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hotel Management/Hotel Management.iml" filepath="$PROJECT_DIR$/Hotel Management/Hotel Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/Household Management/Household Management.iml" filepath="$PROJECT_DIR$/Household Management/Household Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/Staff Manager/Staff Management.iml" filepath="$PROJECT_DIR$/Staff Manager/Staff Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/University Exam/University Exam.iml" filepath="$PROJECT_DIR$/University Exam/University Exam.iml" />
