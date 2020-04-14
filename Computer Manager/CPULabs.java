@@ -54,6 +54,11 @@ public class CPULabs {
             System.out.println("Cpu station not found !");
             return false;
         }
+        if(this.cpuLabs[lab][cpu] !=0) {
+            System.out.println("Sign in error because cpu is using!");
+            return false;
+        } 
+
         this.cpuLabs[lab][cpu] = userId;
         return true;
     }
