@@ -8,3 +8,6 @@
   * [Staff Manager](https://github.com/conganhhcmus/Simple-Program/tree/master/Staff%20Manager/src/conganh/hcmus)
   * [Student Records Management](https://github.com/conganhhcmus/Simple-Program/tree/master/Student%20Records%20Management/src/conganh/hcmus)
   * [University Exam](https://github.com/conganhhcmus/Simple-Program/tree/master/University%20Exam/src/conganh/hcmus)
+  * [Computer Manager](https://github.com/conganhhcmus/Simple-Program/tree/master/Computer%20Manager)
+  * [Ticket Manager](https://github.com/conganhhcmus/Simple-Program/tree/master/Ticket%20Manager)
+  
