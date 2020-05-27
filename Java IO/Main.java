@@ -58,18 +58,15 @@ public class Main {
         }
         if (k == 1) {
             if (mode == 1) {
-                Ceasar.Encode(source,result);
+                Ceasar.Encode(source, result);
+            } else {
+                Ceasar.Decode(source, result);
             }
-            else {
-                Ceasar.Decode(source,result);
-            }
-        }
-        else {
+        } else {
             if (mode == 1) {
-                ROT13.Encode(source,result);
-            }
-            else {
-                ROT13.Decode(source,result);
+                ROT13.Encode(source, result);
+            } else {
+                ROT13.Decode(source, result);
             }
         }
 
@@ -103,10 +100,21 @@ public class Main {
 
     // read file
     public static boolean ReadFile(String filePath) {
+        if (filePath.length() < 5 || !filePath.substring(filePath.length() - 4).equals(".txt")) {
+            System.out.println("File name don't have extension \"txt\" or error!");
+            return false;
+        }
         File f = new File(filePath);
         if (f.exists()) {
             // code here
             try {
+
+                long lastModifyInMillis = f.lastModified();
+                Date lastModifyDate = new Date(lastModifyInMillis);
+                System.out.println("-----INFO-----");
+                System.out.println("Last modify date: " + lastModifyDate);
+                System.out.println("Length (bytes): " + f.length());
+     
                 Scanner myReader = new Scanner(f);
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
