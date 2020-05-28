@@ -10,4 +10,7 @@
   * [University Exam](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/University%20Exam/src/conganh/hcmus)
   * [Computer Manager](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Computer%20Manager)
   * [Ticket Manager](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Ticket%20Manager)
-  
+  * [Java Collection](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Java%20Collection)
+  * [Java Generics](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Java%20Generics)
+  * [Java IO](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Java%20IO)
+  * [Rescuing the Princess](https://github.com/conganhhcmus/Java-ConsoleProgram/tree/master/Rescuing%20the%20Princess)
