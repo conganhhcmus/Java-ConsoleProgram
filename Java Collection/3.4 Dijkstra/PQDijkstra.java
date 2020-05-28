@@ -42,6 +42,11 @@ public class PQDijkstra {
 
     }
 
+    public boolean Check(int src, int end){
+        if (src < 0 || end < 0 || src >= V || end >= V) return false;
+        return true;
+    }
+
     public void show(int src, int end) {
         System.out.printf("RESULT: Distance from %d to %d is %d.\n", src, end, dist[end]);
         System.out.println("PATH: ");
